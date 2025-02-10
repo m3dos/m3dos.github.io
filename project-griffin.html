@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project: Griffin</title>
+  <style>
+    /* Basic styling for the blog page */
+    body {
+      font-family: "Courier New", Courier, monospace;
+      margin: 20px;
+      line-height: 1.6;
+      background-color: #36454F; /* Charcoal background */
+      color: #fff; /* White text for contrast */
+    }
+    header, nav, section, footer {
+      margin-bottom: 20px;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+    nav li {
+      margin-bottom: 5px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #007BFF;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    /* Optional: offset sections to adjust for fixed header or smooth scrolling */
+    section {
+      padding-top: 60px; 
+      margin-top: -60px;
+    }
+    /* Standard link (unchanged/unclicked) */
+a:link {
+  color: #4FC3F7; /* or any color you prefer */
+}
+
+/* Visited link (after user clicks on it) */
+a:visited {
+  color: #66B2FF; /* or choose the same color as unclicked if you want no difference */
+}
+
+/* Hover state (when user hovers over the link) */
+a:hover {
+  color: #82DFFF; /* a slightly lighter color or a contrast color */
+  text-decoration: underline;
+}
+
+/* Active or focus (when link is being clicked or tabbed onto) */
+a:active,
+a:focus {
+  color: #C6F6FF; /* highlight color */
+  outline: none;  /* remove dotted outline if you wish, or style it differently */
+}
+  </style>
+</head>
+<body>
+
+
+  <section id="project1">
+    <h2>Project Griffin - Node.js + Github Actions + Containers + ECR + AWS ECS</h2>
+    <a href="https://github.com/m3dos/griffin/tree/v0.1.1-beta">Check out the source code</a>
+    <p> This project will be the foundation to future work - so we're going to focus on the initial framework that will enable us to get the project up and running and enable us to iterate our automation and code quickly</p>
+    <p> Tech Stack: Node.js with express, containers, a github actions workflow, and Amazon ECR </p>
+    <img
+    src="img/project1-techstack.png"
+    alt="Griffin Tech Stack"
+    style="width:500px; height:auto; border-radius:10px; float:left; margin-left: 30px; margin-right:10px;"
+    />
+    <div style="clear: both;"></div>
+    <p> <a href=https://github.com/m3dos/griffin/blob/v0.1.1-beta/app/src/app.js">The Node.js application</a> is a simple express server that will eventually do more, but for now it's our guinea pig </p>
+    <p> <a href="https://github.com/m3dos/griffin/blob/v0.1.1-beta/app/Dockerfile">The dockerfile</a> builds a lightweight alpine linux container that will run the node.js application. We'll build and test our code and create our container then ship it up to ECS </p>   
+    
+    <img
+    src="img/project1-dockerfile.png"
+    alt="Griffin Dockerfile"
+    style="width:200px; height:auto; border-radius:10px; margin-left: 30px; margin-right:10px;"
+    />
+
+    <p> <a href="https://github.com/m3dos/griffin/blob/v0.1.1-beta/.github/workflows/app-cicd.yml">The github actions workflow</a> is a simple workflow that will run our tests and build our container. Once the container is built, it will be pushed to Amazon ECR. </p>
+    <img
+    src="img/project1-workflow.png"
+    alt="Griffin Github Actions"
+    style="width:300px; height:auto; border-radius:10px; margin-left: 30px; margin-right:10px;"
+    />
+
+  </section>
+
+
+  <footer>
+
+  </footer>
+
+</body>
+</html>
