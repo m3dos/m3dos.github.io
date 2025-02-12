@@ -89,6 +89,15 @@ a:focus {
     style="width:300px; height:auto; border-radius:10px; margin-left: 30px; margin-right:10px;"
     />
 
+    <p>A note on security - It's vital that we do not store secrets within our repository. To facilitate this we can <a href="https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions">store our secrets as a variable in GitHub</a></p>
+    In our case, we're storing our AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, as secrets in our repository. We'll use these secrets in our workflow to authenticate with AWS ECR and ECS.</p>
+
+    <img
+    src="img/project1-secrets.png"
+    alt="Griffin Github Actions"
+    style="width:500px; height:auto; border-radius:10px; margin-left: 30px; margin-right:10px;"
+    />
+
   </section>
 
 
