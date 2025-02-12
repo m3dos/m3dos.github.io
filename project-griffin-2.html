@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project: Griffin</title>
+  <style>
+    /* Basic styling for the blog page */
+    body {
+      font-family: "Courier New", Courier, monospace;
+      margin: 20px;
+      line-height: 1.6;
+      background-color: #36454F; /* Charcoal background */
+      color: #fff; /* White text for contrast */
+    }
+    header, nav, section, footer {
+      margin-bottom: 20px;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+    nav li {
+      margin-bottom: 5px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #007BFF;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    /* Optional: offset sections to adjust for fixed header or smooth scrolling */
+    section {
+      padding-top: 60px; 
+      margin-top: -60px;
+    }
+    /* Standard link (unchanged/unclicked) */
+a:link {
+  color: #4FC3F7; /* or any color you prefer */
+}
+
+/* Visited link (after user clicks on it) */
+a:visited {
+  color: #66B2FF; /* or choose the same color as unclicked if you want no difference */
+}
+
+/* Hover state (when user hovers over the link) */
+a:hover {
+  color: #82DFFF; /* a slightly lighter color or a contrast color */
+  text-decoration: underline;
+}
+
+/* Active or focus (when link is being clicked or tabbed onto) */
+a:active,
+a:focus {
+  color: #C6F6FF; /* highlight color */
+  outline: none;  /* remove dotted outline if you wish, or style it differently */
+}
+  </style>
+</head>
+<body>
+
+
+  <section id="project1">
+    <h2>Project Griffin - Terraform</h2>
+
+    <a href="https://github.com/m3dos/griffin/">Check out the most recent source code</a>
+    <p> Now that we have the barebones of our application, we can start to build out the infrastructure that will support it. We will use Terraform to define our infrastructure as code. This will allow us to version control our infrastructure and easily deploy it to multiple environments. </p>
+    
+    <p> We're using Amazon's ECS to host our Node.js container, so we'll first need to define the ECS cluster name, and define an IAM role for ECS to assume.  The IAM role allows ECS to perform operations on our behalf like pulling our container image from ECR or publishing logs to cloudwatch.  </p>
+
+    <img
+    src="img/project1-ECSrole.png"
+    alt="ECS Name and IAM Role"
+    style="width:350px; height:auto; border-radius:10px; margin-left: 30px; margin-right:10px;"
+    />
+
+    <ul>
+        <li><strong>Key Attributes:</strong>
+          <ul>
+            <li><code>name</code>: The name of the IAM role (<em>ecsTaskExecution-Role</em>).</li>
+            <li><code>assume_role_policy</code>: Defines who or what can assume this role. Here, it’s <em>ecs-tasks.amazonaws.com</em>, which means ECS tasks can use this role.</li>
+          </ul>
+        </li>
+      </ul>
+
+    <p> Next, we'll define the ECS task definition.  This is where we define the container image we want to run, the resources it needs, and the environment variables it requires.  We'll also define the ECS service, which is responsible for running and maintaining a specified number of tasks.  </p>
+    
+    <img
+    src="img/project1-ECStaskdefinition.png"
+    alt="ECS Name and IAM Role"
+    style="width:350px; height:auto; border-radius:10px; margin-left: 30px; margin-right:10px;"
+    />
+    
+    <ul>
+        <li><strong>Key Attributes:</strong>
+          <ul>
+            <li><code>family</code>: A name or identifier for your task definition (<em>my-task</em>).</li>
+            <li><code>runtime_platform</code>: Specifies CPU architecture (<em>ARM64</em>) and operating system family (<em>LINUX</em>).</li>
+            <li><code>network_mode = "awsvpc"</code>: Required for Fargate tasks, giving each task its own elastic network interface.</li>
+            <li><code>requires_compatibilities = ["FARGATE"]</code>: Informs ECS that this task definition is for Fargate.</li>
+            <li><code>cpu / memory</code>: Allocated resources for the task: <em>256</em> CPU units (0.25 vCPU) and <em>512</em> MB of memory.</li>
+            <li><code>execution_role_arn</code>: References the role that ECS tasks will assume (<em>ecs_task_execution_role</em>).</li>
+            <li><code>container_definitions</code>: JSON-encoded configuration for your container(s). This includes:
+              <ul>
+                <li><em>image</em>: Docker image in ECR (<em>dev:latest</em> tag).</li>
+                <li><em>portMappings</em>: Exposes container port 3000 (and maps it to host port 3000).</li>
+                <li><em>essential</em>: If <code>true</code>, stopping this container stops the task.</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+  </section>
+
+
+  <footer>
+
+  </footer>
+
+</body>
+</html>
